@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ContextType = {
-	insertCss: PropTypes.func.isRequired
+	insertCss: PropTypes.func.isRequired,
+	fetch: PropTypes.func.isRequired
 };
 
 class App extends React.PureComponent {
