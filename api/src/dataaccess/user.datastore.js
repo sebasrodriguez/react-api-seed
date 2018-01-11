@@ -1,8 +1,8 @@
 import { BaseStore } from './base.datastore';
 
-export class TestStore extends BaseStore {
+export class UserStore extends BaseStore {
     constructor() {
-        super("test");
+        super("users");
     }
 
     all() {
