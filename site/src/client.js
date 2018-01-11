@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import deepForceUpdate from 'react-deep-force-update';
 import queryString from 'query-string';
-import { createPath } from 'history/PathUtils';
 
+import { createPath } from 'history/PathUtils';
+import createFetch from './createFetch';
 import App from './components/App';
 import history from './history';
 import { updateMeta } from './DOMUtils';
@@ -14,7 +15,8 @@ const context = {
 		// eslint-disable-next-line no-underscore-dangle
 		const removeCss = styles.map(x => x._insertCss());
 		return () => { removeCss.forEach(f => f()); };
-	}
+	},
+	fetch: createFetch(fetch, { baseUrl: window.App.apiUrl })
 };
 
 const container = document.getElementById('app');

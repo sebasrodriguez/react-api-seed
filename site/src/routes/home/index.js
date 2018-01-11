@@ -3,8 +3,13 @@ import React from 'react';
 import Home from './Home';
 import Layout from '../../components/Layout';
 
-const action = () => (
-	{
+async function action( /*{ fetch }*/ ) {
+	// const resp = await fetch('/graphql', {
+	// 	body: JSON.stringify({ query: 'una query' })
+	// });
+
+	// const { data } = await resp.json();
+	return {
 		chunks: ['home'],
 		title: '',
 		component: (
@@ -12,7 +17,7 @@ const action = () => (
 				<Home />
 			</Layout>
 		)
-	}
-);
+	};
+}
 
 export default action;

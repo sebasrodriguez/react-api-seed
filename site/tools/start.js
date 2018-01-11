@@ -8,7 +8,6 @@ import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
 import webpackConfig from './webpack.config';
 import run, { format } from './run';
 import clean from './clean';
-
 const isDebug = !process.argv.includes('--release');
 
 function createCompilationPromise(name, compiler, config) {
@@ -43,7 +42,7 @@ async function start() {
 	if (server) return server;
 	server = express();
 	server.use(errorOverlayMiddleware());
-	server.use(express.static(path.resolve(__dirname, '../public')));
+	server.use(express.static(path.resolve(__dirname, '../assets')));
 
 	// Configure client-side hot module replacement
 	const clientConfig = webpackConfig.find(config => config.name === 'client');

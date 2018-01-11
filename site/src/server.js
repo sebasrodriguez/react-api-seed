@@ -5,8 +5,10 @@ import bodyParser from 'body-parser';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
+import fetch from 'node-fetch';
 
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
+import createFetch from './createFetch';
 import App from './components/App';
 import Html from './components/Html';
 import router from './router';
@@ -27,7 +29,8 @@ app.get('*', async (req, res, next) => {
 	try {
 		const css = new Set();
 		const context = {
-			insertCss: (...styles) => { styles.forEach(style => css.add(style._getCss())); }
+			insertCss: (...styles) => { styles.forEach(style => css.add(style._getCss())); },
+			fetch: createFetch(fetch, { baseUrl: config.api.serverUrl })
 		};
 
 		const route = await router.resolve({

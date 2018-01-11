@@ -28,7 +28,7 @@ async function copy() {
 		),
 		copyFile('LICENSE.txt', 'build/LICENSE.txt'),
 		copyFile('yarn.lock', 'build/yarn.lock'),
-		copyDir('public', 'build/assets')
+		copyDir('src/assets/', 'build/assets')
 	]);
 
 	if (process.argv.includes('--watch')) {
