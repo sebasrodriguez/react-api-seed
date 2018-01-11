@@ -22,7 +22,7 @@ const config = {
 	context: path.resolve(__dirname, '..'),
 	output: {
 		path: path.resolve(__dirname, '../build/assets'),
-		publicPath: '/assets/',
+		publicPath: '/',
 		pathinfo: isVerbose,
 		filename: isDebug ? '[name].js' : '[name].[chunkhash:8].js',
 		chunkFilename: isDebug ? '[name].chunk.js' : '[name].[chunkhash:8].chunk.js',
@@ -308,7 +308,7 @@ const serverConfig = {
 					options: {
 						...rule.options,
 						name: `assets/${rule.options.name}`,
-						publicPath: url => url.replace(/assets\/src\//, '')
+						publicPath: url => url.replace(/assets\//, '')
 					}
 				};
 			}

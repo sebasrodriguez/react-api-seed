@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 const ContextType = {
 	insertCss: PropTypes.func.isRequired,
-	fetch: PropTypes.func.isRequired
+	fetch: PropTypes.func.isRequired,
+	graphQLClient: PropTypes.object.isRequired
 };
 
 class App extends React.PureComponent {

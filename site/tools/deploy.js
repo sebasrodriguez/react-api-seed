@@ -75,9 +75,9 @@ async function deploy() {
 		await cleanDir('build/*', {
 			nosort: true,
 			dot: true,
-			ignore: ['build/.git', 'build/public']
+			ignore: ['build/.git', 'build/assets']
 		});
-		await moveDir('build/public', 'build');
+		await moveDir('build/assets', 'build');
 	}
 
 	// Push the contents of the build folder to the remote server via Git

@@ -5,7 +5,6 @@ import bodyParser from 'body-parser';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
-import fetch from 'node-fetch';
 
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import createFetch from './createFetch';
@@ -20,7 +19,6 @@ const app = express();
 
 global.navigator = global.navigator || {};
 global.navigator.userAgent = global.navigator.userAgent || 'all';
-console.log(path.resolve(__dirname, 'assets'));
 app.use(express.static(path.resolve(__dirname, 'assets')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

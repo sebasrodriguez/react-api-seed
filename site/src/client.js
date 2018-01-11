@@ -5,6 +5,7 @@ import queryString from 'query-string';
 
 import { createPath } from 'history/PathUtils';
 import createFetch from './createFetch';
+import { api } from './config';
 import App from './components/App';
 import history from './history';
 import { updateMeta } from './DOMUtils';
@@ -16,7 +17,8 @@ const context = {
 		const removeCss = styles.map(x => x._insertCss());
 		return () => { removeCss.forEach(f => f()); };
 	},
-	fetch: createFetch(fetch, { baseUrl: window.App.apiUrl })
+	fetch: createFetch(fetch, { baseUrl: api.serverUrl }),
+	graphQLClient: client
 };
 
 const container = document.getElementById('app');
@@ -46,7 +48,7 @@ async function onLocationChange(location, action) {
 		const route = await router.resolve({
 			...context,
 			pathname: location.pathname,
-			query: queryString.parse(location.search),
+			query: queryString.parse(location.search)
 		});
 
 		// Prevent multiple page renders during the routing process
