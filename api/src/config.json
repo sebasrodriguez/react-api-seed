@@ -1,0 +1,16 @@
+{
+  "port": 8080,
+  "bodyLimit": "100kb",
+  "corsHeaders": [
+    "Link"
+  ],
+  "db": {
+    "client": "mysql",
+    "connection": {
+      "host": "localhost",
+      "user": "root",
+      "password": "my-secret-pw",
+      "database": "test"
+    }
+  }
+}
