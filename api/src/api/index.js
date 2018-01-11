@@ -1,8 +1,6 @@
-import { Router } from 'express';
-import { buildSchema } from 'graphql';
+import {Router} from 'express';
+import {buildSchema} from 'graphql';
 import graphqlHTTP from 'express-graphql';
-
-import { TestStore } from "../dataaccess/test.datastore";
 
 export default () => {
     const schema = buildSchema(`
@@ -18,8 +16,20 @@ export default () => {
 
     const root = {
         test: () => {
-            const testStore = new TestStore();
-            return testStore.all();
+            return [
+                {
+                    id: 1,
+                    name: "Victoria Lavella"
+                },
+                {
+                    id: 2,
+                    name: "Sebastián Pereira"
+                },
+                {
+                    id: 3,
+                    name: "Sebastián Rodríguez"
+                }
+            ];
         }
     };
 
