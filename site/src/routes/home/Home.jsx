@@ -5,9 +5,16 @@ import s from './Home.scss';
 
 class Home extends React.Component {
 	render() {
+		const { users } = this.props;
+		const usersTemplate = (
+			<ul>
+				{users.map(user => <li key={user.id}>{user.name}</li>)}
+			</ul>
+		);
+
 		return (
 			<div className={s.container}>
-				<h1>React.js News</h1>
+				{usersTemplate}
 			</div>
 		);
 	}
