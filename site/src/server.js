@@ -5,15 +5,16 @@ import bodyParser from 'body-parser';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
+import fetch from 'node-fetch';
 
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
-import createFetch from './createFetch';
 import App from './components/App';
 import Html from './components/Html';
 import router from './router';
 import config from './config';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.scss';
+import contextFactory from './contextFactory';
 
 const app = express();
 
@@ -26,10 +27,8 @@ app.use(bodyParser.json());
 app.get('*', async (req, res, next) => {
 	try {
 		const css = new Set();
-		const context = {
-			insertCss: (...styles) => { styles.forEach(style => css.add(style._getCss())); },
-			fetch: createFetch(fetch, { baseUrl: config.api.serverUrl })
-		};
+		const insertCss = (...styles) => { styles.forEach(style => css.add(style._getCss())); };
+		const context = contextFactory(fetch, insertCss);
 
 		const route = await router.resolve({
 			...context,

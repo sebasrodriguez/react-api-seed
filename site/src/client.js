@@ -4,22 +4,18 @@ import deepForceUpdate from 'react-deep-force-update';
 import queryString from 'query-string';
 
 import { createPath } from 'history/PathUtils';
-import createFetch from './createFetch';
-import { api } from './config';
 import App from './components/App';
 import history from './history';
 import { updateMeta } from './DOMUtils';
 import router from './router';
+import contextFactory from './contextFactory';
 
-const context = {
-	insertCss: (...styles) => {
-		// eslint-disable-next-line no-underscore-dangle
-		const removeCss = styles.map(x => x._insertCss());
-		return () => { removeCss.forEach(f => f()); };
-	},
-	fetch: createFetch(fetch, { baseUrl: api.serverUrl }),
-	graphQLClient: client
+const insertCss = (...styles) => {
+	// eslint-disable-next-line no-underscore-dangle
+	const removeCss = styles.map(x => x._insertCss());
+	return () => { removeCss.forEach(f => f()); };
 };
+const context = contextFactory(fetch, insertCss);
 
 const container = document.getElementById('app');
 let currentLocation = history.location;
