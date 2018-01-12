@@ -14,20 +14,9 @@ async function action({ graphQLClient }) {
 		}
 	`;
 
-	graphQLClient.query({ query })
-		.then((res) => {
-			console.log(res);
-		});
+	const response = await graphQLClient.query({ query });
+	console.log(response.data.users);
 
-	// const resp = await fetch('/graphql', {
-	// 	body: JSON.stringify({ query: '{users{id,name}}' })
-	// });
-
-	// const { data } = await resp.json();
-	// const resp = await fetch('/test');
-	// const { data } = await resp.json();
-
-	// console.log(data);
 	return {
 		chunks: ['home'],
 		title: '',
