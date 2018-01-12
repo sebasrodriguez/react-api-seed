@@ -6,15 +6,12 @@ import s from './Home.scss';
 class Home extends React.Component {
 	render() {
 		const { users } = this.props;
-		const usersTemplate = (
-			<ul>
-				{users.map(user => <li key={user.id}>{user.name}</li>)}
-			</ul>
-		);
 
 		return (
 			<div className={s.container}>
-				{usersTemplate}
+				<ul>
+					{users.map(user => <li key={user.id}>{user.name}</li>)}
+				</ul>
 			</div>
 		);
 	}
