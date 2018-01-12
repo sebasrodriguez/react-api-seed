@@ -59,7 +59,6 @@ const config = {
 							}
 						],
 						'@babel/preset-stage-2',
-						'@babel/preset-flow',
 						['@babel/preset-react', { development: isDebug }]
 					],
 					plugins: [
@@ -140,13 +139,10 @@ const config = {
 					}
 				]
 			},
-			// Convert plain text into JS module
 			{
 				test: /\.txt$/,
 				loader: 'raw-loader'
 			},
-
-			// Convert Markdown into HTML
 			{
 				test: /\.md$/,
 				loader: path.resolve(__dirname, './lib/markdown-loader.js')
@@ -159,8 +155,6 @@ const config = {
 					name: staticAssetName
 				}
 			},
-
-			// Exclude dev modules from production build
 			...(isDebug
 				? []
 				: [
@@ -216,11 +210,7 @@ const clientConfig = {
 		...(isDebug
 			? []
 			: [
-				// Decrease script evaluation time
-				// https://github.com/webpack/webpack/blob/master/examples/scope-hoisting/README.md
 				new webpack.optimize.ModuleConcatenationPlugin(),
-				// Minimize all JavaScript output of chunks
-				// https://github.com/mishoo/UglifyJS2#compressor-options
 				new webpack.optimize.UglifyJsPlugin({
 					compress: {
 						warnings: isVerbose,
@@ -239,14 +229,8 @@ const clientConfig = {
 				})
 			]
 		),
-		// Webpack Bundle Analyzer
-		// https://github.com/th0r/webpack-bundle-analyzer
 		...(isAnalyze ? [new BundleAnalyzerPlugin()] : [])
 	],
-	// Some libraries import Node modules but don't use them in the browser.
-	// Tell Webpack to provide empty mocks for them so importing them works.
-	// https://webpack.js.org/configuration/node/
-	// https://github.com/webpack/node-libs-browser/tree/master/mock
 	node: {
 		fs: 'empty',
 		net: 'empty',
@@ -272,8 +256,6 @@ const serverConfig = {
 		chunkFilename: 'chunks/[name].js',
 		libraryTarget: 'commonjs2'
 	},
-	// Webpack mutates resolve object, so clone it to avoid issues
-	// https://github.com/webpack/webpack/issues/4817
 	resolve: { ...config.resolve },
 	module: {
 		...config.module,
@@ -301,7 +283,6 @@ const serverConfig = {
 					}
 				};
 			}
-			// Override paths to static assets
 			if (rule.loader === 'file-loader' || rule.loader === 'url-loader' || rule.loader === 'svg-url-loader') {
 				return {
 					...rule,
@@ -315,30 +296,19 @@ const serverConfig = {
 			return rule;
 		})
 	},
-	externals: [
-		'./assets.json',
-		nodeExternals({
-			whitelist: [reStyle, reImage]
-		})
-	],
+	externals: ['./assets.json', nodeExternals({ whitelist: [reStyle, reImage] })],
 	plugins: [
-		// Define free variables
-		// https://webpack.js.org/plugins/define-plugin/
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
 			'process.env.BROWSER': false,
 			__DEV__: isDebug
 		}),
-		// Adds a banner to the top of each generated chunk
-		// https://webpack.js.org/plugins/banner-plugin/
 		new webpack.BannerPlugin({
 			banner: 'require("source-map-support").install();',
 			raw: true,
 			entryOnly: false
 		})
 	],
-	// Do not replace node globals with polyfills
-	// https://webpack.js.org/configuration/node/
 	node: {
 		console: false,
 		global: false,

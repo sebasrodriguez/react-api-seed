@@ -2,7 +2,6 @@ module.exports = {
 	parser: 'babel-eslint',
 	extends: [
 		'airbnb',
-		'plugin:flowtype/recommended',
 		'plugin:css-modules/recommended'
 	],
 	parserOptions: {
@@ -10,7 +9,7 @@ module.exports = {
 		'allowImportExportEverywhere': true,
 		'ecmaFeatures': { 'jsx': true }
 	},
-	plugins: ['flowtype', 'css-modules'],
+	plugins: ['css-modules'],
 	globals: { __DEV__: true },
 	env: { browser: true },
 	rules: {
