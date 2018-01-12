@@ -15,14 +15,13 @@ async function action({ graphQLClient }) {
 	`;
 
 	const response = await graphQLClient.query({ query });
-	console.log(response.data.users);
 
 	return {
 		chunks: ['home'],
 		title: '',
 		component: (
 			<Layout>
-				<Home />
+				<Home users={response.data.users} />
 			</Layout>
 		)
 	};

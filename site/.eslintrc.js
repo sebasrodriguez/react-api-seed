@@ -22,7 +22,7 @@ module.exports = {
 		'css-modules/no-unused-class': [2, { 'camelCase': true }],
 		'css-modules/no-undef-class': [2, { 'camelCase': true }],
 		'import/no-extraneous-dependencies': ['error', { packageDir: '.' }],
-		"import/extensions": [2, "never", { "packages": "always" }],
+		'import/extension': [2, 'never', { 'packages': 'always' }],
 		'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
 		'prefer-destructuring': [
 			'error',
@@ -46,7 +46,14 @@ module.exports = {
 		'react/jsx-indent': [1, 'tab'],
 		'react/jsx-indent-props': [2, 0],
 		'react/no-unused-state': ['off'],
-		"react/sort-comp": [0]
+		'react/sort-comp': [0],
+		'max-len': ['error', 140, 2, {
+			ignoreUrls: true,
+			ignoreComments: false,
+			ignoreRegExpLiterals: true,
+			ignoreStrings: true,
+			ignoreTemplateLiterals: true,
+		}],
 	},
 	settings: {
 		'import/resolver': {
